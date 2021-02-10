@@ -1,4 +1,4 @@
-package project0;
+package com.revature;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
