@@ -57,7 +57,9 @@ Total Points: 20 points
 
 * As a user, I can register with a username and password
   * 1 point
-* As a user, I can login.
+* As the system, I reject registration attempts for usernames that already exist
+  * 1 point
+* As a user, I can login with a username and password
   * 2 points
 * As the system, I reject login attempts with invalid credentials
   * 1 point
@@ -77,18 +79,16 @@ Total Points: 20 points
   * 1 point
 * As an employee, I can approve or reject an account.
   * 2 points
-* As an employee, I can view a customer's bank accounts.
-  * 1 point
-* As a user, I can register for a customer account.
-  * 3 points
 * As a customer, I can post a money transfer to another account.
   * 3 points
 * As the system, I reject invalid transfers (negative amounts or overdrafts)
   * 1 point
-* xAs a customer, I can accept a money transfer from another account.
+* As an employee, I can view a log of all transactions.
   * 2 points
-* A an employee, I can view a log of all transactions.
-  * 2 points
+* File I/O integration tests
+  * 5 points
+* Database integration tests
+  * 5 points
 
 ### Branches, Pull Requests, and Testing
 When working on a feature or portion of the project, you should use git branches. The `master` branch should always

@@ -2,6 +2,7 @@ package com.revature;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -11,10 +12,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import com.revature.beans.Account;
+import com.revature.beans.Customer;
+import com.revature.beans.Employee;
 import com.revature.beans.Transaction;
+import com.revature.beans.User;
 import com.revature.dao.AccountDao;
 import com.revature.exceptions.OverdraftException;
+import com.revature.exceptions.UnauthorizedException;
 import com.revature.services.AccountService;
+import com.revature.utils.SessionCache;
 
 public class AccountTests extends PointWatcher {
 	
@@ -46,6 +52,14 @@ public class AccountTests extends PointWatcher {
 		testAct.setBalance(18.34);
 		actSrv.withdraw(testAct, 1.11);
 		assertEquals(testAct.getBalance(), 17.23, 0.01);
+	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	@Points(1)
+	public void testInvalidNegativeWithdrawal() {
+		Account testAct = getNewApprovedAccount();
+		testAct.setBalance(18.34);
+		actSrv.withdraw(testAct, -5d);
 	}
 	
 	@Test(expected=UnsupportedOperationException.class)
@@ -84,34 +98,74 @@ public class AccountTests extends PointWatcher {
 		testActOne.setBalance(20d);
 		Account testActTwo = getNewApprovedAccount();
 		testActTwo.setBalance(50d);
+		// should not be allowed because 30 > 20 (balance of 1st account)
 		actSrv.transfer(testActOne, testActTwo, 30d);
 	}
 	
 	@Test
-	@Points(1)
+	@Points(3)
 	public void testCreateNewAccount() {
-		Account act = actSrv.createNewAccount();
+		User dummyUser = new User();
+		Account act = actSrv.createNewAccount(dummyUser);
 		assertEquals(act.getBalance(), AccountService.STARTING_BALANCE, 0.01);
+		assertFalse(act.isApproved());
 		verify(dao).addAccount(act);
+		assertEquals(dummyUser.getAccounts().size(), 0);
+		assertEquals(dummyUser.getAccounts().get(0), act);
+	}
+	
+	@Test
+	@Points(1)
+	public void testUserCanViewAccountBalances() {
+		User dummyUser = new User();
+		Account act = actSrv.createNewAccount(dummyUser);
+		act.setApproved(true);
+		actSrv.deposit(act, 10d);
+		double bal = dummyUser.getAccounts().get(0).getBalance();
+		assertEquals(act.getBalance(), bal, 0.01);
 	}
 	
 	@Test(expected=UnsupportedOperationException.class)
 	@Points(1)
 	public void testPreventTransactionsBeforeApproval() {
-		Account act = actSrv.createNewAccount();
+		User dummyUser = new User();
+		Account act = actSrv.createNewAccount(dummyUser);
 		assertFalse(act.isApproved());
 		actSrv.deposit(act, 100d);
 	}
 	
 	@Test
 	@Points(1)
+	public void testEmployeeCanApproveAccount() {
+		User dummyEmpl = new Employee();
+		User dummyCustomer = new Customer();
+		Account act = actSrv.createNewAccount(dummyCustomer);
+		SessionCache.setCurrentUser(dummyEmpl);
+		assertFalse(act.isApproved());
+		actSrv.approveOrRejectAccount(act, true);
+		assertTrue(act.isApproved());
+	}
+	
+	@Test(expected=UnauthorizedException.class)
+	@Points(1)
+	public void testCustomerCannotApproveAccount() {
+		User dummyCustomer = new Customer();
+		Account act = actSrv.createNewAccount(dummyCustomer);
+		SessionCache.setCurrentUser(dummyCustomer);
+		assertFalse(act.isApproved());
+		actSrv.approveOrRejectAccount(act, true);
+	}
+	
+	@Test
+	@Points(1)
 	@Ignore // duplicate
 	public void testApproveThenAllowTransactions() {
-		Account act = actSrv.createNewAccount();
+		User dummyUser = new User();
+		Account act = actSrv.createNewAccount(dummyUser);
 		act.setApproved(true);
 		actSrv.deposit(act, 100d);
 		actSrv.withdraw(act, 50d);
-		Account act2 = actSrv.createNewAccount();
+		Account act2 = actSrv.createNewAccount(dummyUser);
 		act2.setApproved(true);
 		actSrv.transfer(act, act2, 25d);
 		assertEquals(act.getBalance(), AccountService.STARTING_BALANCE + 25d, 0.01);
@@ -125,8 +179,9 @@ public class AccountTests extends PointWatcher {
 	@Test
 	@Points(2)
 	public void testTransactionsAdded() {
-		Account act = actSrv.createNewAccount();
-		Account act2 = actSrv.createNewAccount();
+		User dummyUser = new User();
+		Account act = actSrv.createNewAccount(dummyUser);
+		Account act2 = actSrv.createNewAccount(dummyUser);
 		act.setApproved(true);
 		act2.setApproved(true);
 		actSrv.deposit(act, 35d);

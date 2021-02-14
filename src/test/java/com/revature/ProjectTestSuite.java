@@ -4,6 +4,9 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+/**
+ * This is the test suite for the project, it runs all the unit and integration tests
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	AccountTests.class,

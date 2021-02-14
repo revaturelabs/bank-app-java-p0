@@ -1,6 +1,5 @@
 package com.revature;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
@@ -15,6 +14,7 @@ import org.mockito.Mock;
 import com.revature.beans.User;
 import com.revature.dao.UserDao;
 import com.revature.exceptions.InvalidCredentialsException;
+import com.revature.exceptions.UsernameAlreadyExistsException;
 import com.revature.services.UserService;
 
 public class UserTests extends PointWatcher {
@@ -30,6 +30,7 @@ public class UserTests extends PointWatcher {
 		User mockUser = new User();
 		mockUser.setUsername("testuser");
 		mockUser.setPassword("testpassword");
+		// DAO layer will only retrieve "testuser" -> simulating only this user existing in persistence layer
 		when(udao.getUser(anyString(), anyString())).then(invocation -> {
 			String uname = invocation.getArgument(0);
 			String pw = invocation.getArgument(1);
@@ -69,17 +70,24 @@ public class UserTests extends PointWatcher {
 	@Test
 	@Points(1)
 	public void testRegistration() {
-		String uname = "testuser";
-		String pw = "testpassword";
+		String uname = "registrationTester";
+		String pw = "abcdef";
 		User newUser = new User();
 		newUser.setUsername(uname);
 		newUser.setPassword(pw);
 		userSrv.register(newUser);
-		User u = userSrv.login(uname, pw);
-		assertNotNull(u);
-		assertEquals(u.getUsername(), uname);
-		assertEquals(u.getPassword(), pw);
-		assertEquals(u.getAccounts().size(), 0);
+		verify(udao, times(1)).addUser(newUser);
+	}
+	
+	@Test(expected=UsernameAlreadyExistsException.class)
+	@Points(1)
+	public void testInvalidRegistration() {
+		String uname = "testuser";
+		// try registration with same username - this should fail
+		User anotherUser = new User();
+		anotherUser.setUsername(uname);
+		anotherUser.setPassword("anotherpassword");
+		userSrv.register(anotherUser);
 	}
 	
 }
