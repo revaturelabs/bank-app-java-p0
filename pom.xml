@@ -23,6 +23,12 @@
 					<includes>
 						<include>%regex[.*Tests.*]</include>
 					</includes>
+					<properties>
+						<property>
+							<name>listener</name>
+							<value>com.revature.PointsListener</value>
+						</property>
+					</properties>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -9,19 +9,15 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.revature.beans.User;
 import com.revature.dao.UserDao;
 import com.revature.exceptions.InvalidCredentialsException;
 import com.revature.services.UserService;
 
-@RunWith(MockitoJUnitRunner.class)
-public class UserTests {
+public class UserTests extends PointWatcher {
 	
 	@InjectMocks
 	public UserService userSrv;
@@ -31,7 +27,6 @@ public class UserTests {
 	
 	@Before
 	public void setupMocks() {
-		MockitoAnnotations.openMocks(this);
 		User mockUser = new User();
 		mockUser.setUsername("testuser");
 		mockUser.setPassword("testpassword");
@@ -50,6 +45,7 @@ public class UserTests {
 	 * This test uses mocking to test that the DAO layer is being called once to login
 	 */
 	@Test
+	@Points(2)
 	public void testLoginWithValidCredentials() {
 		String username = "testuser";
 		String pw = "testpassword";
@@ -63,6 +59,7 @@ public class UserTests {
 	 * rejecting invalid credentials and preventing unauthorized logins
 	 */
 	@Test(expected=InvalidCredentialsException.class)
+	@Points(1)
 	public void testLoginWithInvalidCredentials() {
 		String username = "wrong";
 		String pw = "credentials";
@@ -70,6 +67,7 @@ public class UserTests {
 	}
 	
 	@Test
+	@Points(1)
 	public void testRegistration() {
 		String uname = "testuser";
 		String pw = "testpassword";

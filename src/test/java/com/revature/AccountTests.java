@@ -2,15 +2,13 @@ package com.revature;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
-import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.revature.beans.Account;
 import com.revature.beans.Transaction;
@@ -18,19 +16,13 @@ import com.revature.dao.AccountDao;
 import com.revature.exceptions.OverdraftException;
 import com.revature.services.AccountService;
 
-@RunWith(MockitoJUnitRunner.class)
-public class AccountTests {
+public class AccountTests extends PointWatcher {
 	
 	@Mock
 	AccountDao dao;
 	
 	@InjectMocks
 	AccountService actSrv;
-	
-	@Before
-	public void setup() {
-		MockitoAnnotations.openMocks(this);
-	}
 	
 	private Account getNewApprovedAccount() {
 		Account a = new Account();
@@ -40,7 +32,7 @@ public class AccountTests {
 	}
 	
 	@Test(expected=OverdraftException.class)
-	@Points(2)
+	@Points(1)
 	public void testOverdraftPrevention() {
 		Account testAct = getNewApprovedAccount();
 		testAct.setBalance(10d);
@@ -48,7 +40,7 @@ public class AccountTests {
 	}
 	
 	@Test
-	@Points(1)
+	@Points(2)
 	public void testValidWithdraw() {
 		Account testAct = getNewApprovedAccount();
 		testAct.setBalance(18.34);
@@ -57,13 +49,15 @@ public class AccountTests {
 	}
 	
 	@Test(expected=UnsupportedOperationException.class)
-	public void testInvalidDeposit() {
+	@Points(1)
+	public void testInvalidNegativeDeposit() {
 		Account testAct = getNewApprovedAccount();
 		testAct.setBalance(18.34);
 		actSrv.deposit(testAct, -5d);
 	}
 	
 	@Test
+	@Points(2)
 	public void testValidDeposit() {
 		Account testAct = getNewApprovedAccount();
 		testAct.setBalance(12.94);
@@ -72,6 +66,7 @@ public class AccountTests {
 	}
 	
 	@Test
+	@Points(3)
 	public void testValidTransfer() {
 		Account testActOne = getNewApprovedAccount();
 		testActOne.setBalance(100d);
@@ -83,6 +78,7 @@ public class AccountTests {
 	}
 	
 	@Test(expected=UnsupportedOperationException.class)
+	@Points(1)
 	public void testInvalidTransfer() {
 		Account testActOne = getNewApprovedAccount();
 		testActOne.setBalance(20d);
@@ -92,6 +88,7 @@ public class AccountTests {
 	}
 	
 	@Test
+	@Points(1)
 	public void testCreateNewAccount() {
 		Account act = actSrv.createNewAccount();
 		assertEquals(act.getBalance(), AccountService.STARTING_BALANCE, 0.01);
@@ -99,6 +96,7 @@ public class AccountTests {
 	}
 	
 	@Test(expected=UnsupportedOperationException.class)
+	@Points(1)
 	public void testPreventTransactionsBeforeApproval() {
 		Account act = actSrv.createNewAccount();
 		assertFalse(act.isApproved());
@@ -106,6 +104,8 @@ public class AccountTests {
 	}
 	
 	@Test
+	@Points(1)
+	@Ignore // duplicate
 	public void testApproveThenAllowTransactions() {
 		Account act = actSrv.createNewAccount();
 		act.setApproved(true);
@@ -123,6 +123,7 @@ public class AccountTests {
 	}
 	
 	@Test
+	@Points(2)
 	public void testTransactionsAdded() {
 		Account act = actSrv.createNewAccount();
 		Account act2 = actSrv.createNewAccount();

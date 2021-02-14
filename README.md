@@ -52,23 +52,28 @@ You must complete these requirements by **Wednesday of Week 3** of training.
 3. Configuration should be externalized (e.g. read in from a file or environment variable) instead of hard-coded
 
 ## Core Requirements / User Stories
-Total Points: 23 points
+Total Points: 20 points
 
 * As a user, I can register with a username and password
   * 1 point
 * As a user, I can login.
   * 2 points
+* As the system, I reject login attempts with invalid credentials
+  * 1 point
 * As a customer, I can apply for a new bank account with a starting balance.
   * 3 points
-* As a customer, I can view the balance of a specific account.
+* As a customer, I can view the balance of a specific account
   * 1 point
-* As a customer, I can make a withdrawal or deposit to a specific account.
+* As a customer, I can make a deposit to a specific account
   * 2 points
-* As the system, I reject invalid transactions.
-  * Ex:
-    * A withdrawal that would result in a negative balance.
-    * A deposit or withdrawal of negative money.
+* As a customer, I can make a withdrawal from a specific account
   * 2 points
+* As the system, I reject and prevent overdrafts
+  * 1 points
+* As the system, I reject deposits or withdrawals of negative money
+  * 2 points
+* As the system, I reject any transactions of unapproved accounts
+  * 1 point
 * As an employee, I can approve or reject an account.
   * 2 points
 * As an employee, I can view a customer's bank accounts.
@@ -77,7 +82,9 @@ Total Points: 23 points
   * 3 points
 * As a customer, I can post a money transfer to another account.
   * 3 points
-* As a customer, I can accept a money transfer from another account.
+* As the system, I reject invalid transfers (negative amounts or overdrafts)
+  * 1 point
+* xAs a customer, I can accept a money transfer from another account.
   * 2 points
 * A an employee, I can view a log of all transactions.
   * 2 points
