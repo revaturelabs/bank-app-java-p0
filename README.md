@@ -7,11 +7,20 @@ A customer can apply for an account, view their balance, and make withdrawals an
 An employee can approve or deny accounts and view account balances for their customers.
 
 ## Purpose
-
 We want to see that you can meet deadlines and that you can code.
 The basic structure of the application has been created for you already.
 You are expected to complete the requirements below and submit your code for review.
+
 The project will be split into 2 parts and you will be given feedback on your progress after each part.
+Additionally, test cases are implemented to score your completion of the requirements and to measure
+your progress. Each passing test gives you a certain number of points as noted in the test case. 
+
+## Tech Stack
+* Java 8
+* Maven
+* JUnit 4.12
+* Log4j 1.2
+* Mockito 3.7
 
 ## Setup
 Step 1: Use GitHub Classroom assignment link to setup your repo
@@ -25,23 +34,15 @@ Step 3: Import the project into workspace
 
 Step 4: Start developing!
 
-Now when you push to Github, a pull request will be opened and the unit tests will be run which report on the 
-state of the project. In the pull request your trainer and QC member can provide feedback on your code
-as you progress.
-
 ## Requirements - Part 1
 
-You must complete these requirements by **Wednesday of Week 2** of training.
+You must complete these requirements by **Wednesday of Week 2** of training (i.e. code must be pushed to `master` branch on Github).
 
-1. Implement enough of the user stories below to score 12 points in your test cases
+1. Implement enough of the user stories below to score 10 points in your test cases
 2. Data is read from and written to a file system 
-3. All user input is received using the java.util.Scanner class
+3. All user input is received using the `java.util.Scanner` class
 4. Log4j is implemented to log events to a file. Appropriate log levels should be used.
 5. Use the project structure given in your starter code. Only modify test classes if you need to refactor tests.
-
-Additionally, test cases are implemented to score your completion of the requirements. Each passing test
-gives you a certain number of points as noted in the test case. You should score at least 12 points by the
-deadline for Part 1.
 
 ## Requirements - Part 2
 
@@ -51,7 +52,7 @@ You must complete these requirements by **Wednesday of Week 3** of training.
 2. Refactor your data access to read / write from a database instead of file system
 3. Configuration should be externalized (e.g. read in from a file or environment variable) instead of hard-coded
 
-## Core Requirements / User Stories
+## User Stories - Core Requirements
 Total Points: 20 points
 
 * As a user, I can register with a username and password
@@ -89,8 +90,21 @@ Total Points: 20 points
 * A an employee, I can view a log of all transactions.
   * 2 points
 
+### Branches, Pull Requests, and Testing
+When working on a feature or portion of the project, you should use git branches. The `master` branch should always
+contain fully working code, not incomplete or broken code. You can work on the codebase in your own branch, and once
+you have completed the feature and passed the relevant tests, merge your branch into `master`.
+
+When you push to the `master` branch on Github, a pull request will be opened automatically and the unit tests 
+will be run which report on the state of the project. In the pull request your trainer and QC member can provide 
+feedback on your code as you progress. If you finish the project before the deadline, push up your code early so 
+that we can give you feedback on your code as soon as possible.
+
+Avoid making unnecessary pushes to the `master` branch on Github as this will waste limited compute resources we can
+use in Github Actions. Instead, test your code locally (`mvn test`, or in your IDE) to see if your tests are passing.
+
 ## Extra
-You are welcome to add additional functionality beyond these base requirements, but you should have the core functionality finished first. Also,
+You are welcome to add additional functionality beyond the base requirements, but you should have the core functionality finished first. Also,
 don't forget to re-run your unit tests when you add new features to check that you aren't introducing regressions into the codebase. Below are 
 some sample stretch goals to aim for.
 
