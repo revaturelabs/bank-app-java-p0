@@ -10,7 +10,9 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	AccountTests.class,
-	UserTests.class
+	UserTests.class,
+	FileIntegrationTests.class,
+	DatabaseIntegrationTests.class,
 })
 public class ProjectTestSuite {
 	

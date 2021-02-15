@@ -9,6 +9,8 @@ import com.revature.beans.User;
  * Implementation of AccountDAO which reads/writes to files
  */
 public class AccountDaoFile implements AccountDao {
+	// use this file location to persist the data to
+	public static String fileLocation = "";
 
 	public Account addAccount(Account a) {
 		// TODO Auto-generated method stub

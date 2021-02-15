@@ -38,22 +38,24 @@ Step 4: Start developing!
 
 You must complete these requirements by **Wednesday of Week 2** of training (i.e. code must be pushed to `master` branch on Github).
 
-1. Implement enough of the user stories below to score 10 points in your test cases
+1. Implement enough of the user stories below to score 20 points in your test cases
 2. Data is read from and written to a file system 
-3. All user input is received using the `java.util.Scanner` class
-4. Log4j is implemented to log events to a file. Appropriate log levels should be used.
-5. Use the project structure given in your starter code. Only modify test classes if you need to refactor tests.
+3. All file integration tests pass
+4. All user input is received using the `java.util.Scanner` class
+5. Log4j is implemented to log events to a file. Appropriate log levels should be used.
+6. Use the project structure given in your starter code. Only modify test classes if you need to refactor tests.
 
 ## Requirements - Part 2
 
 You must complete these requirements by **Wednesday of Week 3** of training.
 
 1. All unit tests should be passing at this point
-2. Refactor your data access to read / write from a database instead of file system
-3. Configuration should be externalized (e.g. read in from a file or environment variable) instead of hard-coded
+2. All database integration tests pass
+3. Refactor your data access to read / write from a database instead of file system
+4. Configuration should be externalized (e.g. read in from a file or environment variable) instead of hard-coded
 
 ## User Stories - Core Requirements
-Total Points: 20 points
+Total Points: 35 points
 
 * As a user, I can register with a username and password
   * 1 point
@@ -86,9 +88,10 @@ Total Points: 20 points
 * As an employee, I can view a log of all transactions.
   * 2 points
 * File I/O integration tests
-  * 5 points
+  * 10 points
 * Database integration tests
-  * 5 points
+  * NOTE: database tests are ignored for scoring purposes, but you should still run the tests locally to 
+  help you validate your JDBC code
 
 ### Branches, Pull Requests, and Testing
 When working on a feature or portion of the project, you should use git branches. The `master` branch should always
@@ -102,6 +105,19 @@ that we can give you feedback on your code as soon as possible.
 
 Avoid making unnecessary pushes to the `master` branch on Github as this will waste limited compute resources we can
 use in Github Actions. Instead, test your code locally (`mvn test`, or in your IDE) to see if your tests are passing.
+
+> NOTE: when you run `mvn test`, look for **PROJECT SCORE** in the console output to view your current score for the project.
+
+### Troubleshooting
+If you run into a problem you can't resolve during development, be resourceful. Here are some ideas to help you:
+* Proofread your code (look for typos or logical errors)
+* Review API documentation
+* Ask a colleague for advice or help (do NOT copy code, though)
+* Search StackOverflow or Google
+* Use print statements or a debugger
+
+Finally, if nothing else - push your code to Github and ask your trainer or QC to review it and give you feedback. It's
+always important that you provide as much context and ask precise questions so that others can best assist you.
 
 ## Extra
 You are welcome to add additional functionality beyond the base requirements, but you should have the core functionality finished first. Also,

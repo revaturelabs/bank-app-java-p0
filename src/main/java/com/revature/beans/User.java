@@ -15,7 +15,7 @@ public class User implements Serializable {
 	public static enum UserType {
 		CUSTOMER, EMPLOYEE
 	}
-	private Account id;
+	private Integer id;
 	private String username;
 	private String password;
 	private String firstName;
@@ -23,10 +23,10 @@ public class User implements Serializable {
 	private UserType userType;
 	private List<Account> accounts;
 	
-	public Account getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Account id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getUsername() {
