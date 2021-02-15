@@ -125,12 +125,12 @@ don't forget to re-run your unit tests when you add new features to check that y
 some sample stretch goals to aim for.
 
 ### Stretch Goals
-* Accounts can be Checking or Savings accounts
-  * Checking accounts have no limit on transactions
-  * Savings accounts have a limit of 5 transactions per month
+* Savings accounts have an enforced limit of 5 transactions per month
 * Employees can blacklist a customer
 * Blacklisted customers cannot login or perform transactions
 * Transactions can be filtered by user, account, type of transaction, or amount
+* Transactions above a configurable limit are flagged for fraud and rejected
 * Record customer emails and send a notification when a transaction exceeds a configurable amount (HINT: look into Javamail API)
+* Write some unit tests for any of these bonus features you've completed
 
 Good luck :)
