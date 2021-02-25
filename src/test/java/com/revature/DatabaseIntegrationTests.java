@@ -80,6 +80,7 @@ public class DatabaseIntegrationTests extends PointWatcher {
 		secondAccount.setType(AccountType.SAVINGS);
 		secondAccount.setApproved(false);
 		secondAccount.setBalance(32.10);
+		adao.addAccount(secondAccount);
 		List<Account> all = adao.getAccounts();
 		assertEquals(all.size(), 2);
 	}

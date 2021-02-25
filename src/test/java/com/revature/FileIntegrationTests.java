@@ -156,6 +156,7 @@ public class FileIntegrationTests extends PointWatcher {
 		second.setId(2);
 		second.setUsername("test2");
 		second.setPassword("someTestPassword");
+		udao.addUser(second);
 		List<User> allUsers = udao.getAllUsers();
 		assertEquals(allUsers.size(), 2);
 	}

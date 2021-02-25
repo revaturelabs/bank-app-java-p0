@@ -117,7 +117,7 @@ public class AccountTests extends PointWatcher {
 		assertEquals(act.getBalance(), AccountService.STARTING_BALANCE, 0.01);
 		assertFalse(act.isApproved());
 		verify(dao).addAccount(act);
-		assertEquals(dummyUser.getAccounts().size(), 0);
+		assertEquals(dummyUser.getAccounts().size(), 1);
 		assertEquals(dummyUser.getAccounts().get(0), act);
 	}
 	
@@ -193,8 +193,8 @@ public class AccountTests extends PointWatcher {
 		assertEquals(act2.getTransactions().get(0).getAmount(), 5d, 0.01);
 		assertEquals(act2.getTransactions().get(0).getType(), Transaction.TransactionType.TRANSFER);
 		assertEquals(act2.getBalance(), AccountService.STARTING_BALANCE + 5d, 0.01);
-		// first account should have been updated twice
-		verify(dao, times(2)).updateAccount(act);
+		// first account should have been updated three times
+		verify(dao, times(3)).updateAccount(act);
 		// second account should have been updated once
 		verify(dao).updateAccount(act2);
 	}

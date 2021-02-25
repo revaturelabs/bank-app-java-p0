@@ -82,11 +82,10 @@ public class UserTests extends PointWatcher {
 	@Test(expected=UsernameAlreadyExistsException.class)
 	@Points(1)
 	public void testInvalidRegistration() {
-		String uname = "testuser";
 		// try registration with same username - this should fail
 		User anotherUser = new User();
-		anotherUser.setUsername(uname);
-		anotherUser.setPassword("anotherpassword");
+		anotherUser.setUsername("testuser");
+		anotherUser.setPassword("testpassword");
 		userSrv.register(anotherUser);
 	}
 	

@@ -34,16 +34,18 @@ Step 3: Import the project into workspace
 
 Step 4: Start developing!
 
-## Requirements - Part 1
+## Requirements - Part 1 (Check-in)
 
-You must complete these requirements by **Wednesday of Week 2** of training (i.e. code must be pushed to `master` branch on Github).
+The first part of the project should be completed by **Wednesday of Week 2** of training. The items below are guidelines
+as to what you should have done by the date to keep you on track. Regardless of functionality completed, you must have your
+code pushed to your `master` branch on Github). We'll review your submission and give you any feedback to keep you on track 
+for the final deadline.
 
-1. Implement enough of the user stories below to score 20 points in your test cases
+1. Implement enough of the user stories below to score 15 points in your test cases
 2. Data is read from and written to a file system 
 3. All file integration tests pass
 4. All user input is received using the `java.util.Scanner` class
-5. Log4j is implemented to log events to a file. Appropriate log levels should be used.
-6. Use the project structure given in your starter code. Only modify test classes if you need to refactor tests.
+5. Use the project structure given in your starter code. Only modify test classes if you need to refactor tests.
 
 ## Requirements - Part 2
 
@@ -52,7 +54,8 @@ You must complete these requirements by **Wednesday of Week 3** of training.
 1. All unit tests should be passing at this point
 2. All database integration tests pass
 3. Refactor your data access to read / write from a database instead of file system
-4. Configuration should be externalized (e.g. read in from a file or environment variable) instead of hard-coded
+4. Log4j is implemented to log events to a file. Appropriate log levels should be used.
+5. Configuration should be externalized (e.g. read in from a file or environment variable) instead of hard-coded
 
 ## User Stories - Core Requirements
 Total Points: 35 points
@@ -107,6 +110,12 @@ Avoid making unnecessary pushes to the `master` branch on Github as this will wa
 use in Github Actions. Instead, test your code locally (`mvn test`, or in your IDE) to see if your tests are passing.
 
 > NOTE: when you run `mvn test`, look for **PROJECT SCORE** in the console output to view your current score for the project.
+
+Feel free to modify or refactor the tests if they don't fit with the application code you're writing. The tests
+are provided as an example so you can see how to setup and assert conditions properly. Make sure any tests you write or refactor
+make sense in the context of testing the behavior you want to implement.
+
+> If you find errors in the starter tests or project code, feel free to change it and open a ticket on the Github repo
 
 ### Troubleshooting
 If you run into a problem you can't resolve during development, be resourceful. Here are some ideas to help you:
